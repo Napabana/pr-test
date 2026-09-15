@@ -21,3 +21,9 @@ def divide(a: int, b: int) -> float:
     if b == 0:
         raise ZeroDivisionError("division by zero")
     return a / b
+
+
+def clamp(value: int, lower: int, upper: int) -> int:
+    """将 value 限制在 [lower, upper] 区间内；当 lower 大于 upper 时抛出 ValueError。"""
+    if lower > upper: raise ValueError("lower must not exceed upper")
+    return max(lower, min(value, upper))

@@ -1,6 +1,6 @@
 import pytest
 
-from calculator import add, subtract, multiply, divide, clamp
+from calculator import add, subtract, multiply, divide, clamp, abs_diff
 
 
 def test_add_positive_numbers():
@@ -68,3 +68,24 @@ def test_clamp_invalid_bounds_raises():
     """下限大于上限时抛出 ValueError。"""
     with pytest.raises(ValueError, match="lower must not exceed upper"):
         clamp(5, 10, 0)
+
+
+def test_abs_diff_positive_ordering():
+    """较大的数在前时返回正差。"""
+    assert abs_diff(10, 4) == 6
+
+
+def test_abs_diff_reversed_ordering():
+    """较小的数在前时仍返回正差。"""
+    assert abs_diff(4, 10) == 6
+
+
+def test_abs_diff_equal_values():
+    """两数相等时返回 0。"""
+    assert abs_diff(7, 7) == 0
+
+
+def test_abs_diff_negative_inputs():
+    """负数输入时返回绝对差。"""
+    assert abs_diff(-3, -8) == 5
+    assert abs_diff(-3, 8) == 11
